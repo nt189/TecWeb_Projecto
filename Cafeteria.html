@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del usuario</title>
+    <link rel="stylesheet" href="css/Cafeteria.css">
+    <link rel="stylesheet" href="css/Main.css">
+</head>
+<body>
+    <header>
+
+    </header>
+
+    <div class="container">
+       <aside class="sidebar">
+        <ul>
+            <li><a>Cuenta</a></li>
+            <li></li>
+            <li><a href="Index.html">Inicio</a></li>
+            <li><a href="#">Configuración</a></li>
+            <li><a onclick="cerrarsession()">Cerrar Sesión</a></li>
+        </ul>
+       </aside>
+
+       <main class="content">
+        <section class="add-products">
+            <h1>Agregar producto</h1>
+            <form id="product-form">
+                <div class="form-group">
+                  <li id="msnombre"></li>
+                  <input class="form-control" type="text" id="nombre" placeholder="Nombre de producto">
+                </div>
+                <div class="form-group">
+                  <li id="msmarca"></li>
+                  <input class="form-control" type="text" id="marca" name="marca" placeholder="Nombre de la marca">
+                </div>
+                <div class="form-group">
+                  <li id="msmodelo"></li>
+                  <input class="form-control" type="text" id="modelo" name="modelo" placeholder="Modelo del producto">
+                </div>
+                <div class="form-group">
+                  <li id="msprecio"></li>
+                  <input class="form-control" type="number" id="precio" name="precio" step="0.01" placeholder="Precio">
+                </div>
+                <div class="form-group">
+                  <li id="msdetalles"></li>
+                  <textarea class="form-control" id="detalles" name="detalles" rows="4" cols="50" maxlength="300" placeholder="Detalles del producto"></textarea>
+                </div>
+                <div class="form-group">
+                  <li id="msunidades"></li>
+                  <input class="form-control" type="number" id="unidades" name="unidades" placeholder="Unidades">
+                </div>
+                <div class="form-group">
+                  <label for="imagen">Imagen del producto: </label>
+                  <li id="msimagen"></li>
+                  <input type="file" id="imagen" name="imagen" accept="image/*">
+                </div>
+                <input type="hidden" id="productId">
+                <button class="btn btn-primary btn-block text-center" type="submit">
+                  Agregar Producto
+                </button>
+              </form>
+        </section>
+
+        <section class="products-section">
+            <h1>Productos en promoción</h1>
+            <div class="card">
+                <div class="image-placeholder">
+                    <img src="img/tacos3.jpeg" alt="">
+                </div>
+                <div class="product-info">
+                    <h2>Producto</h2>
+                    <p>Descripción:</p>
+                    <p>Esto es un ejemplo de una Descripción
+                        para una carta de estas para el resutaurante
+                        akjndjasdnkjsan nasjdn jasdncjasdnva
+                        asdkcnjasndcjhnasdcnasjhcjahdcjsabcj
+                    </p>
+                    <p class="price">$999</p>
+                    <div class="quantity-container">
+                        <label for="quantity">Cantidad a vender</label>
+                        <input type="number" id="quantity" value="0">
+                        <button>Vender</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+       </main> 
+    </div>
+</body>
+</html>

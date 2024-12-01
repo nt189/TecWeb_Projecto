@@ -3,13 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lobo Croquetas - Encuentra tu comida en CU BUAP</title>
+    <title>Cheafetery - Encuentra tu comida en CU BUAP</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <link rel="stylesheet" href="css/Main.css">
+    <link rel="stylesheet" href="css/Cafeteria.css">
     <script src="js/Funciones.js"></script>
 </head>
 <body>
-    <header id="header"> </header>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <span>Cheafetery</span>
+            </div>
+            <div>
+                <center><b style="color: #ffffff; font-size: 32px;">BUAP</b></center>
+            </div>
+            <div class="nav-links">
+                <a href="Index.html">Inicio</a>
+                <a href="Index.html#map">Productos</a>
+                <a href="Index.html#dashboard">Dashboard</a>
+                <a id="session" href="LogandReg.html">
+                    <center><i class="fa-solid fa-user" style="color: #FFFFFF;"></i></center>
+                    <p sytle="">Cuenta</p>
+                </a>
+            </div>
+        </nav>
+    </header>
 
     <main>
         <section class="search-section">
@@ -28,37 +48,56 @@
             
         </section>
         
-        <section class="restaurants-grid">
-            <div class="contenedor">
-                <!-- Ejemplo de tarjeta de restaurante -->
-                <article class="restaurant-card" id="card1">
-                    <div class="restaurant-image">
-                        <a href="Vickys.html"><img src="img/tacos-placeros.jpg" alt="Restaurante"></a>
-                    </div>
-                    <div class="restaurant-info">
-                        <h3 class="restaurant-title">Antojitos Vickys</h3>
-                        <div class="rating">           
-                            <i class="fas fa-star"></i>            
-                            <i class="fas fa-star"></i>           
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                            <span>(24 reseñas)</span>
-                        </div>    
-                        <div class="restaurant-details">           
-                            <p><i class="fas fa-map-marker-alt"></i> A 10 min de CU</p>
-                            <p><i class="far fa-clock"></i> Abierto: 9:00 - 18:00</p>
-                        </div>           
-                            <div class="price-range">           
-                                <span>$40 - $80</span>   
-                            </div> 
-                    </div>
-                </article>
+        <center><h1>Productos</h1></center>
+        <hr>
+        <br>
+
+        <section id="products">
+            <div class="card">
+                <div class="image-placeholder">
+                    <img src="img/tacos3.jpeg" alt="">
+                </div>
+                <div class="product-info">
+                    <h2>Producto</h2>
+                    <p>Descripción:</p>
+                    <p>Esto es un ejemplo de una Descripción
+                        para una carta de estas para el resutaurante
+                        akjndjasdnkjsan nasjdn jasdncjasdnva
+                        asdkcnjasndcjhnasdcnasjhcjahdcjsabcj
+                    </p>
+                    <p class="price">$999</p>
+                </div>
             </div>
-        </section> 
+        </section>
     </main>
 
-    <footer id="footer"></footer>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sobre Nosotros</h3>
+                <ul>
+                    <li><a href="#">Quiénes somos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Para Restaurantes</h3>
+                <ul>
+                    <li><a href="#">Registra tu negocio</a></li>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </body>
-<script src="js/HeadAndFoot.js"></script> <!-- Carga de forma dinamica el footer y header-->
 </html>
