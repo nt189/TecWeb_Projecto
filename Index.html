@@ -31,9 +31,44 @@
         </nav>
     </header>
 
-    <main>
+    <main> 
+        <!--Aqui dashboard-->
         <section id="Dashboard">
-            
+            <div class="card">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+                
+                <!--Publico en genral(sin login)-->
+                <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+                <script>
+                    var xValues = ["Bebida", "Dulceria", "Postres", "Comida preparada"];
+                    var yValues = [50, 20, 40, 10, 0];
+                    var barColors = ["red", "green","blue","yellow"];
+
+                    //url del php
+                    let urt = ''
+                    
+                    new Chart("myChart", {
+                      type: "bar",
+                      data: {
+                        labels: xValues,
+                        datasets: [{
+                          backgroundColor: barColors,
+                          data: yValues
+                        }]
+                      },
+                      options: {
+                        legend: {display: false},
+                        title: {
+                          display: true,
+                          text: "Productos existentes por categoria"
+                        }
+                      }
+                    });
+                </script>
+                <!--Cafeteria(con login)-->
+
+                
+            </div>
         </section>
 
         <section class="search-section">

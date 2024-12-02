@@ -1,66 +1,121 @@
 <?php
-namespace projtecweb\myapi\validaciones;
+namespace projtecweb\myapi\Validaciones;
 
+require_once __DIR__ . '/../DataBase.php';
 use projtecweb\myapi\DataBase;
 
-class Create extends DataBase {
-
-    public function __construct($db, $user = 'root', $pass = 'zP*liGgdxEbBXjyk') {
-        parent::__construct($db, $user, $pass);
-    }
+class Validaciones extends DataBase {
 
     public function Login($jsonOBJ) {
-        $email = $jsonOBJ->email ?? null;
-        $password = $jsonOBJ->password ?? null;
+        try {
+            $username = $jsonOBJ->username ?? null;
+            $password = $jsonOBJ->password ?? null;
 
-        if (!$email || !$password) {
-            return json_encode(['error' => 'Faltan datos de inicio de sesión'], JSON_PRETTY_PRINT);
-        }
+            if (!$username || !$password) {
+                throw new \Exception('Faltan datos de inicio de sesión');
+            }
 
-        $query = "SELECT * FROM cafeteria WHERE email = ${email} AND password = ${password}";
-        $stmt = mysqli_prepare($this->conexion, $query);
-        mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+            $query = "SELECT * FROM users WHERE username = ?";
+            $stmt = mysqli_prepare($this->conexion, $query);
+            if (!$stmt) {
+                throw new \Exception('Error en la consulta: ' . mysqli_error($this->conexion));
+            }
+            mysqli_stmt_bind_param($stmt, 's', $username);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $user = mysqli_fetch_assoc($result);
 
-        if (mysqli_num_rows($result) > 0) {
-            return json_encode(['success' => 'Inicio de sesión exitoso'], JSON_PRETTY_PRINT);
-        } else {
-            return json_encode(['error' => 'Credenciales incorrectas'], JSON_PRETTY_PRINT);
+            if ($user && password_verify($password, $user['password'])) {
+                return json_encode(['success' => 'Inicio de sesión exitoso', 'user_id' => $user['id']], JSON_PRETTY_PRINT);
+            } else {
+                throw new \Exception('Credenciales incorrectas');
+            }
+        } catch (\Exception $e) {
+            return json_encode(['error' => $e->getMessage()], JSON_PRETTY_PRINT);
         }
     }
 
     public function Signin($jsonOBJ) {
-        $email = $jsonOBJ->email ?? null;
-        $password = $jsonOBJ->password ?? null;
-        $cafeteria = $jsonOBJ->cafeteria ?? null;
-        $facultad = $jsonOBJ->facultad ?? null;
-    
-        if (!$email || !$password || !$cafeteria || !$facultad) {
-            return json_encode(['error' => 'Faltan datos para registrarse'], JSON_PRETTY_PRINT);
+        try {
+            $username = $jsonOBJ->username ?? null;
+            $password = $jsonOBJ->password ?? null;
+            $ubicacion = $jsonOBJ->ubicacion ?? null;
+
+            if (!$username || !$password || !$ubicacion) {
+                throw new \Exception('Faltan datos para registrarse');
+            }
+
+            $checkQuery = "SELECT * FROM users WHERE username = ?";
+            $stmt = mysqli_prepare($this->conexion, $checkQuery);
+            if (!$stmt) {
+                throw new \Exception('Error en la consulta: ' . mysqli_error($this->conexion));
+            }
+            mysqli_stmt_bind_param($stmt, 's', $username);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+
+            if (mysqli_num_rows($result) > 0) {
+                throw new \Exception('El usuario ya existe');
+            }
+
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $insertQuery = "INSERT INTO users (username, password, ubicacion) VALUES (?, ?, ?)";
+            $stmt = mysqli_prepare($this->conexion, $insertQuery);
+            if (!$stmt) {
+                throw new \Exception('Error en la consulta: ' . mysqli_error($this->conexion));
+            }
+            mysqli_stmt_bind_param($stmt, 'sss', $username, $hashedPassword, $ubicacion);
+
+            if (mysqli_stmt_execute($stmt)) {
+                return json_encode(['success' => 'Usuario registrado exitosamente'], JSON_PRETTY_PRINT);
+            } else {
+                throw new \Exception('Error al registrar usuario: ' . mysqli_stmt_error($stmt));
+            }
+        } catch (\Exception $e) {
+            return json_encode(['error' => $e->getMessage()], JSON_PRETTY_PRINT);
         }
-    
-        // Verificar si el usuario ya existe.
-        $checkQuery = "SELECT * FROM usuarios WHERE email = ?";
-        $stmt = mysqli_prepare($this->conexion, $checkQuery);
-        mysqli_stmt_bind_param($stmt, 's', $email);
+    }
+
+    public function registerCafeteria($username, $password, $ubicacion) {
+        if (empty($username) || empty($password) || empty($ubicacion)) {
+            return "Todos los campos son obligatorios.";
+        }
+
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = mysqli_prepare($this->conexion, $sql);
+        mysqli_stmt_bind_param($stmt, 's', $username);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-    
-        if (mysqli_num_rows($result) > 0) {
-            return json_encode(['error' => 'El usuario ya existe'], JSON_PRETTY_PRINT);
+
+        if (mysqli_fetch_assoc($result)) {
+            return "El nombre de usuario ya está registrado.";
         }
-    
-        // Insertar nuevo usuario.
-        $insertQuery = "INSERT INTO usuarios (email, password, cafeteria, facultad) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($this->conexion, $insertQuery);
-        mysqli_stmt_bind_param($stmt, 'ssss', $email, $password, $cafeteria, $facultad);
-    
-        if (mysqli_stmt_execute($stmt)) {
-            return json_encode(['success' => 'Usuario registrado exitosamente'], JSON_PRETTY_PRINT);
-        } else {
-            return json_encode(['error' => 'Error al registrar usuario'], JSON_PRETTY_PRINT);
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users (username, password, ubicacion) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($this->conexion, $sql);
+        mysqli_stmt_bind_param($stmt, 'sss', $username, $hashedPassword, $ubicacion);
+        mysqli_stmt_execute($stmt);
+
+        return "Registro exitoso.";
+    }
+
+    public function loginCafeteria($username, $password) {
+        $sql = "SELECT * FROM users WHERE username = ?";
+        $stmt = mysqli_prepare($this->conexion, $sql);
+        mysqli_stmt_bind_param($stmt, 's', $username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $user = mysqli_fetch_assoc($result);
+
+        if ($user && password_verify($password, $user['password'])) {
+            return "Login exitoso. ID del usuario: " . $user['id'];
         }
-    }    
+
+        return "Usuario o contraseña incorrectos.";
+    }
 }
 ?>
+
+

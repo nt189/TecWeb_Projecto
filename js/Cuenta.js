@@ -41,8 +41,6 @@ function anchoPagina() {
     }
 }
 
-// anchoPagina();
-
 function inciarSesion() {
     if (window.innerWidth > 850) {
         formulario_register.style.display = "none";
@@ -64,15 +62,20 @@ inciarSesion();
 
 // Función para el registro
 function handleRegister(event) {
-    event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+    event.preventDefault();
 
     const data = {
-        email: document.getElementById('Correo').value,
+        username: document.getElementById('nomCafeteria').value,
         password: document.getElementById('Contraseña').value,
         confirmPassword: document.getElementById('Contraseña2').value,
-        cafeteria: document.getElementById('nomCafeteria').value,
-        facultad: document.getElementById('Facultad').value,
+        ubicacion: document.getElementById('Facultad').value,
     };
+
+    // Validar que todos los campos estén llenos
+    if (!data.username || !data.password || !data.confirmPassword || !data.ubicacion) {
+        alert('Todos los campos son obligatorios');
+        return;
+    }
 
     // Validar contraseñas coincidentes
     if (data.password !== data.confirmPassword) {
@@ -81,20 +84,24 @@ function handleRegister(event) {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8080/backend/register.php', true);
+    xhr.open('POST', 'backend/register.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    alert('Registro exitoso');
-                } else {
-                    alert(response.error);
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert('Registro exitoso');
+                    } else {
+                        console.error('Error del servidor:', response.error);
+                    }
+                } catch (e) {
+                    console.error('Error en la respuesta del servidor:', xhr.responseText);
                 }
             } else {
-                alert('Error en el servidor');
+                console.error('Error en el servidor:', xhr.statusText);
             }
         }
     };
@@ -104,33 +111,47 @@ function handleRegister(event) {
 
 // Función para el inicio de sesión
 function handleLogin(event) {
-    event.preventDefault(); // Evita el envío tradicional del formulario
+    event.preventDefault();
 
     const data = {
-        email: document.getElementById('loginCorreo').value,
-        password: document.getElementById('loginPassword').value,
+        username: document.getElementById('cargar_correo').value,
+        password: document.getElementById('cargar_contraseña').value, // Corregido el ID del campo de contraseña
     };
 
+    // Validar que todos los campos estén llenos
+    if (!data.username || !data.password) {
+        alert('Todos los campos son obligatorios');
+        return;
+    }
+
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:8080/backend/login.php', true);
+    xhr.open('POST', 'backend/login.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    alert('Inicio de sesión exitoso');
-                    window.location.href = 'pagina-principal.html';
-                } else {
-                    alert(response.error);
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert('Inicio de sesión exitoso');
+                        window.location.href = 'pagina-principal.html';
+                    } else {
+                        console.error('Error del servidor:', response.error);
+                    }
+                } catch (e) {
+                    console.error('Error en la respuesta del servidor:', xhr.responseText);
                 }
             } else {
-                alert('Error en el servidor');
+                console.error('Error en el servidor:', xhr.statusText);
             }
         }
     };
 
     xhr.send(JSON.stringify(data));
 }
+
+// Añadir los event listeners para los formularios
+document.querySelector('.formulario_register').addEventListener('submit', handleRegister);
+document.querySelector('.formulario_login').addEventListener('submit', handleLogin);
 

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión | Registrarse</title>
-    <script src="JavaScript/Main.js"></script>
     <link rel="stylesheet" href="css/Main.css">
     <link rel="stylesheet" href="css/Cuenta.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,22 +49,20 @@
             </div>
                 <!--Formulario para el registro-->
             <div class="contenedor_login-register">
-    
-                <form action="" class="formulario_login">
+                <form class="formulario_login">
                     <h2>Iniciar Sesión</h2>
-                    <input type="text" placeholder="Correo" id="cargar_correo">
-                    <input type="password" placeholder="Contraseña" id="cargar_usuario">
-                    <button type="button" onclick="">Iniciar Sesión</button>
+                    <input type="text" placeholder="Nombre de usuario" id="cargar_correo" autocomplete="username">
+                    <input type="password" placeholder="Contraseña" id="cargar_contraseña" autocomplete="current-password"> <!-- Corregido el ID del campo de contraseña -->
+                    <button type="submit">Iniciar Sesión</button>
                 </form>
     
-                <form action="" class="formulario_register">
+                <form class="formulario_register">
                     <h2>Registrarse</h2>
-                    <input type="text" placeholder="Nombre de la cafeteria" id="nomCafeteria">
-                    <input type="email" placeholder="Correo" id="Correo">
-                    <input type="password" placeholder="Contraseña" id="Contraseña">
-                    <input type="password" placeholder="Contraseña2" id="Contraseña2">
-                    <input type="text" placeholder="Facultad" id="Facultad">
-                    <button type="submit" onclick="">Registrarse</button>
+                    <input type="text" placeholder="Nombre de usuario" id="nomCafeteria" autocomplete="username">
+                    <input type="password" placeholder="Contraseña" id="Contraseña" autocomplete="new-password">
+                    <input type="password" placeholder="Confirmar Contraseña" id="Contraseña2" autocomplete="new-password">
+                    <input type="text" placeholder="Ubicación" id="Facultad">
+                    <button type="submit">Registrarse</button>
                 </form> 
             </div>
         </div>

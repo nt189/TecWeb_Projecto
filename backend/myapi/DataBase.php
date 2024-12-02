@@ -1,33 +1,25 @@
 <?php
 namespace projtecweb\myapi;
+require_once __DIR__ . '/../config.php';
 
 abstract class DataBase {
     protected $conexion;
     protected $data;
 
-    public function __construct($db, $user, $pass) {
-        $this->conexion = @mysqli_connect(
-            'localhost',
-            $user,
-            $pass,
-            $db
+    public function __construct() {
+        $this->conexion = mysqli_connect(
+            DB_HOST,
+            DB_USER,
+            DB_PASS,
+            DB_NAME
         );
     
-        /**
-         * NOTA: si la conexión falló $conexion contendrá false
-         **/
         if(!$this->conexion) {
-            die('¡Base de datos NO conextada!');
+            throw new \Exception('¡Base de datos NO conectada! ' . mysqli_connect_error());
         }
-        /*else {
-            echo 'Base de datos encontrada';
-        }*/
         $this->data = array();
     }
 
-    public function getData() {
-        // SE HACE LA CONVERSIÓN DE ARRAY A JSON
-        return json_encode($this->data, JSON_PRETTY_PRINT);
-    }
+    // ...existing code...
 }
 ?>
