@@ -47,4 +47,47 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.formulario_login').submit(function(e) {
+        e.preventDefault();
+
+        const username = $('#cargar_correo').val().trim();
+        const password = $('#cargar_usuario').val().trim();
+
+        if (username === "" || password === "") {
+            alert("Todos los campos son obligatorios.");
+            return;
+        }
+
+        const datosLogin = {
+            'username': username,
+            'password': password
+        };
+
+        $.ajax({
+            url: 'backend/login.php',
+            type: 'POST',
+            data: JSON.stringify(datosLogin),
+            contentType: 'application/json',
+            success: function(respuesta) {
+                try {
+                    const resultado = typeof respuesta === 'string' ? JSON.parse(respuesta) : respuesta;
+                    if (resultado.success) {
+                        alert('Inicio de sesión exitoso');
+                        window.location.href = 'Cafeteria.html';
+                    } else {
+                        alert('Error al iniciar sesión: ' + resultado.error);
+                    }
+                } catch (error) {
+                    console.error('Error al procesar la respuesta:', error);
+                    alert('Error al procesar la respuesta del servidor.');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                console.error('Respuesta del servidor:', jqXHR.responseText);
+                alert('Error al iniciar sesión.');
+            }
+        });
+    });
 });

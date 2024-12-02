@@ -1,7 +1,6 @@
 <?php
 namespace projtecweb\myapi\Validaciones;
 
-// require_once __DIR__ . '/../DataBase.php';
 use projtecweb\myapi\DataBase;
 
 class Validaciones extends DataBase {
@@ -128,9 +127,11 @@ class Validaciones extends DataBase {
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $pre[] = mysqli_fetch_assoc($result);
-            $cantidad = mysqli_fetch_assoc($pre);
+            $cantidad[] = $pre[$i]["Bebida"];
+            echo ($cantidad[$i]["Bebida"]);
+            echo('<br>');
         }
-        var_dump($pre);
+        
         $cantidad[] = 0;
         $respuesta = [
             "categoria" => $datosCategoria,
