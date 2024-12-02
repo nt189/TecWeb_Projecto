@@ -20,6 +20,10 @@ abstract class DataBase {
         $this->data = array();
     }
 
+    public function getData(){
+        return json_encode($this->data);
+    }
+
     // ...existing code...
 }
 ?>

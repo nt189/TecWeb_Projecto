@@ -1,24 +1,20 @@
 <?php
-use projtecweb\myapi\Validaciones\Validaciones;
-require_once __DIR__ . '/myapi/Validaciones/Validaciones.php';
+require_once __DIR__ . '/../myapi/Auth/auth.php';
 
-header('Content-Type: application/json');
+use projtecweb\myapi\Auth;
 
 try {
-    $reg = new Validaciones();
+    $data = json_decode(file_get_contents('php://input'), true);
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $jsonOBJ = json_decode(file_get_contents('php://input'));
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Invalid JSON input');
-        }
-        $response = $reg->Signin($jsonOBJ);
-        echo $response;
+    if (isset($data['username']) && isset($data['password']) && isset($data['ubicacion'])) {
+        $auth = new Auth();
+        $response = $auth->registerUser($data['username'], $data['password'], $data['ubicacion']);
+        echo json_encode($response);
     } else {
-        throw new Exception('Invalid request method');
+        echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
     }
 } catch (Exception $e) {
-    error_log($e->getMessage());
-    echo json_encode(['error' => 'Error en el servidor']);
+    error_log('Error en register.php: ' . $e->getMessage());
+    echo json_encode(['status' => 'error', 'message' => 'Error en el servidor']);
 }
 ?>

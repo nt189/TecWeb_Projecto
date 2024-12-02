@@ -1,13 +1,23 @@
 <?php
 namespace projtecweb\myapi\Formulario;
+
 use projtecweb\myapi\DataBase;
+// require_once __DIR__ . '/../DataBase.php';
 
 class Formulario extends DataBase {
+
+    public function __construct() {
+        parent::__construct();
+    }
+
     //$datos = arreglo con la informacion recibida del formulario
-    public function saveData($datos){
+    public function saveData($JSON){
+
+        $datos = json_decode($JSON);
+
         //Vericar que sea un arreglo y no este vacio
         if(!is_array($datos) || empty($datos)){
-            throw new \Exception("Arreglo asociativo invalido");//???
+            throw new \Exception("Arreglo asociativo invalido");
         }
 
         $columnas = implode(',', array_keys($datos));
@@ -19,7 +29,7 @@ class Formulario extends DataBase {
         if(!$stmt){
             throw new \Exception("Error al preparar la consulta ".$this->conexion->error);
         }
-        
+
         $tipos = $this->getTiposDeDatos($datos);
         $valores = array_values($datos);
         $stmt->bind_param($tipos, ...$valores);

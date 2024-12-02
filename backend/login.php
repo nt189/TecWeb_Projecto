@@ -1,6 +1,6 @@
 <?php
 use projtecweb\myapi\Validaciones\Validaciones;
-require_once __DIR__ . '/myapi/Validaciones/Validaciones.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 header('Content-Type: application/json');
 
@@ -21,5 +21,4 @@ try {
     error_log($e->getMessage());
     echo json_encode(['error' => 'Error en el servidor']);
 }
-?>
 

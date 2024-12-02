@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cheafetery - Encuentra tu comida en CU BUAP</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <link rel="stylesheet" href="css/Main.css">
     <link rel="stylesheet" href="css/Cafeteria.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <script src="js/Funciones.js"></script>
 </head>
 <body>
@@ -33,47 +33,22 @@
 
     <main> 
         <!--Aqui dashboard-->
-        <section id="Dashboard">
+        <!--<section id="Dashboard">
             <div class="card">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
                 
-                <!--Publico en genral(sin login)-->
+                Publico en genral(sin login)
                 <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-                <script>
-                    var xValues = ["Bebida", "Dulceria", "Postres", "Comida preparada"];
-                    var yValues = [50, 20, 40, 10, 0];
-                    var barColors = ["red", "green","blue","yellow"];
-
-                    //url del php
-                    let urt = ''
-                    
-                    new Chart("myChart", {
-                      type: "bar",
-                      data: {
-                        labels: xValues,
-                        datasets: [{
-                          backgroundColor: barColors,
-                          data: yValues
-                        }]
-                      },
-                      options: {
-                        legend: {display: false},
-                        title: {
-                          display: true,
-                          text: "Productos existentes por categoria"
-                        }
-                      }
-                    });
-                </script>
-                <!--Cafeteria(con login)-->
+                <script>Grafica()</script>
+                Cafeteria(con login)
 
                 
             </div>
-        </section>
+        </section>-->
 
         <section class="search-section">
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Buscar restaurante" oninput="buscarRestaurante()">
+                <input type="text" id="search-input" placeholder="Buscar restaurante">
                 <ul id="resultados" class="result-list"></ul>
                     
             </div>
@@ -92,7 +67,7 @@
         <br>
 
         <section id="products">
-            <div class="card">
+            <!--<div class="card">
                 <div class="image-placeholder">
                     <img src="img/tacos3.jpeg" alt="">
                 </div>
@@ -107,7 +82,7 @@
                     <p class="price2">$1000</p>
                     <p class="price">$999</p>
                 </div>
-            </div>
+            </div>-->
         </section>
     </main>
 
@@ -139,5 +114,10 @@
             </div>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+    <script src="js/Search.js"></script>
 </body>
 </html>

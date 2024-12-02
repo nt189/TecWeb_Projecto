@@ -1,7 +1,7 @@
 <?php
 namespace projtecweb\myapi\Validaciones;
 
-require_once __DIR__ . '/../DataBase.php';
+// require_once __DIR__ . '/../DataBase.php';
 use projtecweb\myapi\DataBase;
 
 class Validaciones extends DataBase {
