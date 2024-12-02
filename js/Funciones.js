@@ -1,8 +1,8 @@
 function Grafica(){
     src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
 
-    var xValues = ["Bebida", "Dulceria", "Postres", "Comida preparada"];
-    var yValues = [50, 20, 40, 10, 0];
+    //var xValues = ["Bebida", "Dulceria", "Postres", "Comida preparada"];
+    //var yValues = [50, 20, 40, 10, 0];
     var barColors = ["red", "green","blue","yellow"];
 
 
@@ -10,29 +10,25 @@ function Grafica(){
         const respuestaRaw = await fetch("./backend/exitencias.php");
         const respuesta = await respuestaRaw.json();
         const $mychart = document.querySelector("#mychart");
-        const etiquetas = respuesta.etiquetas; 
-        const datos = {
-            data: respuesta.datos, 
-        };
-        new Chart($mychart, {
-            type: 'line', // Tipo de gráfica
+        const categoria = respuesta.categoria; 
+        const datos = respuesta.datos;
+        new Chart("myChart", {
+            type: "bar",
             data: {
-                labels: etiquetas,
-                datasets: [
-                    datosVentas2020,
-                    // Aquí más datos...
-                ]
+                labels: categoria,
+                datasets: [{
+                backgroundColor: barColors,
+                data: datos
+                }]
             },
             options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }],
-                },
+                legend: {display: false},
+                title: {
+                display: true,
+                text: "Productos existentes por categoria"
+                }
             }
-        });
+            });
     })();
 
    /* new Chart("myChart", {

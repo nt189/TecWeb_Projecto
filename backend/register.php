@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../myapi/Auth/auth.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-use projtecweb\myapi\Auth;
+use projtecweb\myapi\auth\auth;
 
 try {
     $data = json_decode(file_get_contents('php://input'), true);

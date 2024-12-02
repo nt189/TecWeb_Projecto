@@ -11,7 +11,7 @@
    
        public function searchAndList($search) {
            $this->data = array();
-           $sql = "SELECT * FROM vista_usuarios_productos WHERE producto_nombre LIKE ? AND producto_estado = 0 AND producto_cantidad > 0";
+           $sql = "SELECT * FROM vista_usuarios_productos WHERE producto_nombre LIKE ? AND producto_estado = 1 AND producto_cantidad > 0";
    
            // Preparar la consulta
            $stmt = $this->conexion->prepare($sql);

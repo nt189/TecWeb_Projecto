@@ -1,9 +1,9 @@
 <?php
-namespace projtecweb\myapi;
+namespace projtecweb\myapi\auth;
 
 require_once __DIR__ . '/../DataBase.php';
 
-class Auth extends DataBase {
+class auth extends DataBase {
     public function registerUser($username, $password, $ubicacion) {
         try {
             // Check if user already exists

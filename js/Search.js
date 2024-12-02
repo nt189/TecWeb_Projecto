@@ -24,17 +24,17 @@ $(document).ready(function () {
                         
                         products.forEach(product => {
                             template += `
-                                <div class="card" cardId="${product.id}">
+                                <div class="card" cardId="${product.producto_id}">
                                     <div class="image-placeholder">
                                         <img src="img/tacos3.jpeg" alt="">
                                     </div>
                                     <div class="product-info">
                                         <h2>Producto</h2>
-                                        <h3>${product.name}</h3>
-                                        <p><i class="fas fa-map-marker-alt"></i>${product.location}</p>
-                                        <p>Categoria: ${product.category}</p>
-                                        <p>Descripción: ${product.description}</p>
-                                        <p class="price2">$ ${product.priceSale}</p>
+                                        <h3>${product.producto_nombre}</h3>
+                                        <p><i class="fas fa-map-marker-alt"></i> ${product.user_ubicacion}</p>
+                                        <p>Categoria: ${product.producto_categoria}</p>
+                                        <p>Descripción: ${product.producto_detalles}</p>
+                                        <p class="price2">$ ${product.producto_precio}</p>
                                     </div>
                                 </div>
                             `;
