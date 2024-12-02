@@ -29,8 +29,7 @@ $(document).ready(function () {
                                         <img src="img/tacos3.jpeg" alt="">
                                     </div>
                                     <div class="product-info">
-                                        <h2>Producto</h2>
-                                        <h3>${product.producto_nombre}</h3>
+                                        <h2>Producto: ${product.producto_nombre}</h2>
                                         <p><i class="fas fa-map-marker-alt"></i> ${product.user_ubicacion}</p>
                                         <p>Categoria: ${product.producto_categoria}</p>
                                         <p>Descripción: ${product.producto_detalles}</p>

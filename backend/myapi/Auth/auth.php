@@ -1,14 +1,18 @@
 <?php
-namespace projtecweb\myapi\auth;
+namespace projtecweb\myapi\Auth;
 
+use projtecweb\myapi\DataBase;
 require_once __DIR__ . '/../DataBase.php';
 
-class auth extends DataBase {
+class Auth extends DataBase {
     public function registerUser($username, $password, $ubicacion) {
         try {
             // Check if user already exists
             $query = "SELECT * FROM users WHERE username = ?";
             $stmt = $this->conexion->prepare($query);
+            if (!$stmt) {
+                throw new \Exception('Error en la preparación de la consulta: ' . $this->conexion->error);
+            }
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -21,6 +25,9 @@ class auth extends DataBase {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $query = "INSERT INTO users (username, password, ubicacion) VALUES (?, ?, ?)";
             $stmt = $this->conexion->prepare($query);
+            if (!$stmt) {
+                throw new \Exception('Error en la preparación de la consulta: ' . $this->conexion->error);
+            }
             $stmt->bind_param("sss", $username, $hashedPassword, $ubicacion);
 
             if ($stmt->execute()) {
@@ -30,7 +37,10 @@ class auth extends DataBase {
             }
         } catch (\Exception $e) {
             error_log('Error en Auth::registerUser: ' . $e->getMessage());
-            return ['status' => 'error', 'message' => 'Error en el servidor'];
+            return ['status' => 'error', 'message' => 'Error al registrar usuario'];
+        } catch (\Error $e) {
+            error_log('Error en Auth::registerUser: ' . $e->getMessage());
+            return ['status' => 'error', 'message' => 'Error al registrar usuario'];
         }
     }
 }

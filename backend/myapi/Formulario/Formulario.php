@@ -13,8 +13,12 @@ class Formulario extends DataBase {
     //$datos = arreglo con la informacion recibida del formulario
     public function saveData($JSON){
 
-        $datos = json_decode($JSON);
-
+        $this->data = array(
+            'status'  => 'error',
+            'message' => 'Producto no agregado'
+        );
+        $datos = json_decode(file_get_contents('php://input'), true);
+        
         //Vericar que sea un arreglo y no este vacio
         if(!is_array($datos) || empty($datos)){
             throw new \Exception("Arreglo asociativo invalido");
@@ -37,7 +41,13 @@ class Formulario extends DataBase {
         if(!$stmt->execute()){
             throw new \Exception("Error al ejecutar la consulta ".$this->conexion->error);
         }
+
         $stmt->close();
+        $this->conexion->close();
+        $this->data = array(
+            'status' => 'success',
+            'message' => 'Producto agregado exitosamente.'
+        );
     }
 
     private function getTiposDeDatos($datos){
@@ -54,4 +64,4 @@ class Formulario extends DataBase {
         return $tipos;
     }
 }
-
+?>

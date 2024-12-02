@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('.formulario_register').submit(function(e) {
         e.preventDefault();
-        
+
         const username = $('#nomCafeteria').val().trim();
         const password = $('#Contraseña').val().trim();
         const confirmPassword = $('#Contraseña2').val().trim();
@@ -38,10 +38,12 @@ $(document).ready(function() {
                     }
                 } catch (error) {
                     console.error('Error al procesar la respuesta:', error);
+                    alert('Error al procesar la respuesta del servidor.');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                alert('Error al registrar usuario.');
             }
         });
     });

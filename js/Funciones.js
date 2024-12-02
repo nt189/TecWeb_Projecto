@@ -11,7 +11,12 @@ function Grafica(){
         const respuesta = await respuestaRaw.json();
         const $mychart = document.querySelector("#mychart");
         const categoria = respuesta.categoria; 
-        const datos = respuesta.datos;
+        const dat = respuesta.datos;
+        const datos = array(4);
+        for(i = 0; i<4; i++){
+            datos[i]=dat[i].;
+        }
+        //const datos = respuesta.datos;
         new Chart("myChart", {
             type: "bar",
             data: {
