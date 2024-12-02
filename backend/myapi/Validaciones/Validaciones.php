@@ -127,8 +127,10 @@ class Validaciones extends DataBase {
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $pre[] = mysqli_fetch_assoc($result);
+            echo ($cantidad[$i]["Bebida"]); // con este si jala o algo asi
+            echo('<br>');
             $cantidad[] = $pre[$i]["Bebida"];
-            echo ($cantidad[$i]["Bebida"]);
+            echo ($cantidad[$i]["Bebida"]); // con este si jala o algo asi
             echo('<br>');
         }
         
