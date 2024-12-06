@@ -269,3 +269,7 @@ li[id^="ms"] {
     font-size: 0.9rem;
   }
 }
+
+.error {
+  color: red;
+}

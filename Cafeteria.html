@@ -33,7 +33,18 @@
                 </div>
                 <div class="form-group">
                   <li id="mscategoria"></li>
-                  <input class="form-control" type="text" id="categoria" name="categoria" placeholder="Categoria">
+                  <select class="form-control" name="categoria" id="categoria">
+                    <option value="">Categoria:</option>
+                    <option value="Bebida">Bebida</option>
+                    <option value="Snacks">Snacks</option>
+                    <option value="Productos Frescos">Productos Frescos</option>
+                    <option value="Postres">Postres</option>
+                    <option value="Comida Preparada">Comida Preparada</option>
+                    <option value="Congelados">Congelados</option>
+                    <option value="Lácteos">Lácteos</option>
+                    <option value="Saludables">Saludables</option>
+                    <option value="Otros">Otros</option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <li id="msprecioOrg"></li>
@@ -51,45 +62,33 @@
                   <li id="msunidades"></li>
                   <input class="form-control" type="number" id="unidades" name="unidades" placeholder="Cantidades disponibles">
                 </div>
-              <!--
                 <div class="form-group">
                   <label for="imagen">Imagen del producto: </label>
                   <li id="msimagen"></li>
                   <input type="file" id="imagen" name="imagen" accept="image/*">
                 </div>
-              --> 
-
                 <input type="hidden" id="productId">
                 <button class="btn btn-primary btn-block text-center" type="submit">
                   Agregar Producto
                 </button>
               </form>
         </section>
-<!--
-        <section class="products-section">
-            <h1>Productos en promoción</h1>
-            <div class="card">
-                <div class="image-placeholder">
-                    <img src="img/tacos3.jpeg" alt="">
-                </div>
-                <div class="product-info">
-                    <h2>Producto</h2>
-                    <p>Descripción:</p>
-                    <p>Esto es un ejemplo de una Descripción
-                        para una carta de estas para el resutaurante
-                        akjndjasdnkjsan nasjdn jasdncjasdnva
-                        asdkcnjasndcjhnasdcnasjhcjahdcjsabcj
-                    </p>
-                    <p class="price">$999</p>
-                    <div class="quantity-container">
-                        <label for="quantity">Cantidad a vender</label>
-                        <input type="number" id="quantity" value="0">
-                        <button>Vender</button>
-                    </div>
-                </div>
-            </div>
+        <section>
+          <h2>Productos Activos</h2>
+          <table clase="" id="productos-table">
+            <thead>
+              <th>Nombre</th>
+              <th>Cantidad</th>
+              <th>Precio Original</th>
+              <th>Precio Final</th>
+              <th>Eliminar</th>
+            </thead>
+            <tbody id="productos-list">
+              <!--Se cargan los productos activos de manera dinamica-->
+            </tbody>
+          </table>
         </section>
--->        
+     
        </main> 
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
