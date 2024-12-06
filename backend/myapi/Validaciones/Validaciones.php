@@ -116,22 +116,18 @@ class Validaciones extends DataBase {
     }
 
     public function exitencias(){
-        $datosCategoria = ["Bebida", "Dulceria", "Postres", "Comida Preparada"];
+        $datosCategoria = ["Bebida", "Dulceria", "Postres", "Comida Preparada", "Snacks", "Productos Frescos", "Congelados", "Lacteos", "Saludable", "Otros"];
         $sql ="SELECT SUM(cantidad) as Bebida FROM productos WHERE categoria = ?;";
         $stmt = mysqli_prepare($this->conexion, $sql);
         $pre=[];
         $cantidad= [];
-        for($i = 0; $i<4; $i++){
+        for($i = 0; $i<10; $i++){
             $stmt = mysqli_prepare($this->conexion, $sql);
             mysqli_stmt_bind_param($stmt,'s', $datosCategoria[$i]);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $pre[] = mysqli_fetch_assoc($result);
-            echo ($cantidad[$i]["Bebida"]); // con este si jala o algo asi
-            echo('<br>');
-            $cantidad[] = $pre[$i]["Bebida"];
-            echo ($cantidad[$i]["Bebida"]); // con este si jala o algo asi
-            echo('<br>');
+            $cantidad[]=$pre[$i]["Bebida"];
         }
         
         $cantidad[] = 0;
