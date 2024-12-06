@@ -68,7 +68,6 @@
                     'precioOri': precioOriginal,
                     'precioFin': precioFinal,
                     'detalles': detalles,
-                    'imagen': imagen,
                     'user_id': idSesion
                 };
 

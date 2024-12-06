@@ -152,6 +152,7 @@ main {
     background: var(--light-gray);
     border: none;
     border-radius: 20px;
+    color: black;
     transition: background-color 0.3s ease;
 }
 
